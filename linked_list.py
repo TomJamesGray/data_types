@@ -60,10 +60,7 @@ class Node(object):
 
 if __name__ == "__main__":
     x = Linked_List([1,2,3,4])
-    print_path(x.initial)
     x.add_to_end(5)
-    print_path(x.initial)
-    # x.delete(3)
     x.delete(1)
     print(x)
 
