@@ -2,47 +2,68 @@
 Basic implementation of a linked list in python
 """
 
+class Linked_List(object):
+    def __init__(self,initial_data):
+        if hasattr(initial_data,"__iter__"):
+            self.initial = Node(initial_data[0])
+            prev = self.initial
+            for i in range(1,len(initial_data)):
+                prev.next_node = Node(initial_data[i])
+                prev = prev.next_node
+
+    def search(self,needle):
+        current = self.initial
+        while current != None:
+            if current.data == needle:
+                return current
+            current = current.next_node
+        return False
+
+    def add_to_end(self,data):
+        current = self.initial
+        while current.next_node != None:
+            current = current.next_node
+        current.next_node = Node(data)
+
+    def delete(self,needle):
+        current = self.initial
+        previous = None
+        while current != None:
+            if current.data == needle:
+                if previous == None:
+                    # Handle moving the initial node if you want to delete
+                    # the first node
+                    tmp = self.initial
+                    self.initial = self.initial.next_node
+                    del tmp
+                else:
+                    current.delete_node(previous)
+            previous = current
+            current = current.next_node
+        return False
+
+    def __repr__(self):
+        out = "Linked List: ["
+        current = self.initial
+        while current != None:
+            out += "{} ,".format(current.data)
+            current = current.next_node
+        return "{}]".format(out[:-2])
+
 class Node(object):
     def __init__(self,data):
         self.data = data
         self.next_node= None
-    
-    def add_node(self,data_new):
-        self.next_node = Node(data_new)
-    
-    def delete_node(self,preceding):
-        preceding.next_node = self.next_node
-        del self
 
     def __repr__(self):
         return "Node object data: {}".format(self.data)
 
-def search_linked_list(start,needle):
-    current = start
-    while current != None:
-        if current.data == needle:
-            return current
-        current = current.next_node
-    return False
-
-def print_path(start):
-    current = start
-    while current != None:
-        print("Output: {}".format(current))
-        current = current.next_node
-
 if __name__ == "__main__":
-    initial = Node(0)
-    current = initial
-    # Initialise linked list with data values 0 to 9
-    for i in range(1,10):
-        current.add_node(i)
-        current = current.next_node
-        print(i)
-    print_path(initial)
-    
-    print(search_linked_list(initial,5))
-    print(search_linked_list(initial,100))
-    b = initial.next_node
-    b.delete_node(initial)
-    print_path(initial)
+    x = Linked_List([1,2,3,4])
+    print_path(x.initial)
+    x.add_to_end(5)
+    print_path(x.initial)
+    # x.delete(3)
+    x.delete(1)
+    print(x)
+
