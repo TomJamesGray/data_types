@@ -50,6 +50,28 @@ class Linked_List(object):
             current = current.next_node
         return "{}]".format(out[:-2])
 
+    def __getitem__(self,n):
+        """
+        Return's n'th record (Zero index)
+        :param n: Integer
+        :return: Node object
+        """
+        i = 0
+        current = self.initial
+        while current != None:
+            if i == n:
+                return current
+            i += 1
+            current = current.next_node
+        raise IndexError("index out of range")
+
+    def __iter__(self):
+        current = self.initial
+        while current != None:
+            yield current.data
+            current = current.next_node
+        raise
+
 class Node(object):
     def __init__(self,data):
         self.data = data
@@ -63,4 +85,8 @@ if __name__ == "__main__":
     x.add_to_end(5)
     x.delete(1)
     print(x)
+    print(x[2])
+
+    for a in x:
+        print(a)
 
