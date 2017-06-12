@@ -22,10 +22,11 @@ class Queue(object):
 
     def pop(self):
         last = False
-        if self.head == self.tail:
-            last = True
-        elif self.head == -1:
+        if self.head == -1:
             return False
+        elif self.head == self.tail:
+            last = True
+
         tmp = self.queue[self.head]
         self.queue[self.head] = None
 
@@ -52,3 +53,4 @@ if __name__ == "__main__":
     queue.pop()
     print(queue)
     queue.pop()
+    print(queue)
