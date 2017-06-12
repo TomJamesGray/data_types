@@ -8,7 +8,10 @@ class Queue(object):
             self.add(val)
 
     def add(self,val):
-        if self.head == -1 and self.tail == -1:
+        if (self.tail+1) % len(self.queue) == self.head:
+            print("Queue full")
+            return False
+        elif self.head == -1 and self.tail == -1:
             self.queue[0] = val
             self.head = 0
             self.tail = 0
@@ -46,11 +49,8 @@ class Queue(object):
 if __name__ == "__main__":
     queue = Queue(["a","b","c"],4)
     print(queue)
-    queue.pop()
+    queue.add("d")
     print(queue)
     queue.pop()
     print(queue)
-    queue.pop()
-    print(queue)
-    queue.pop()
-    print(queue)
+    queue.add("e")
